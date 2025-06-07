@@ -353,42 +353,74 @@
     </div>
     <!-- Header Section -->
     <header class="bg-white shadow-sm fixed top-0 left-0 right-0 z-50">
-        <div class="container mx-auto px-4 py-4 flex items-center justify-between">
-            <div class="flex items-center">
-                <a href="./index.html"><img
-                        src="https://static.readdy.ai/image/4c54787fd2047152d108467e5113439e/7af86d792c09289b3ae34fc4ad502412.jpeg"
-                        alt="Dentin Oral Experts" class="h-12 mr-8"></a>
-                <nav class="hidden lg:flex space-x-6">
-                    <a href="./index.html" class="text-gray-900 hover:text-primary font-medium">Home</a>
-                    <a href="#services" class="text-gray-900 hover:text-primary font-medium">Services</a>
-                    <a href="#about" class="text-gray-900 hover:text-primary font-medium">About Us</a>
-                    <a href="#doctors" class="text-gray-900 hover:text-primary font-medium">Doctors</a>
-                    <a href="#testimonials" class="text-gray-900 hover:text-primary font-medium">Testimonials</a>
-                    <a href="#contact" class="text-gray-900 hover:text-primary font-medium">Contact</a>
-                </nav>
-            </div>
-            <div class="flex items-center space-x-4">
-                <div class="hidden md:flex items-center mr-6">
-                    <div class="w-10 h-10 flex items-center justify-center bg-blue-50 rounded-full mr-3">
-                        <i class="ri-phone-line text-primary ri-lg"></i>
-                    </div>
-                    <div>
-                        <p class="text-xs text-gray-500">Call Us</p>
-                        <p class="text-sm font-semibold">95150 84487</p>
-                    </div>
-                </div>
-               
-                <a href="./book-now/index.html"><button id="header-book-appointment"
-                        class="bg-primary text-white px-5 py-2.5 rounded-button font-medium hover:bg-blue-600 transition duration-300 whitespace-nowrap">
-                        Book Appointment
-                    </button>
+  <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+    <!-- Logo + Nav -->
+    <div class="flex items-center">
+      <a href="./index.html">
+        <img src="https://static.readdy.ai/image/4c54787fd2047152d108467e5113439e/7af86d792c09289b3ae34fc4ad502412.jpeg"
+          alt="Dentino Oral Experts" class="h-12 mr-4" />
+      </a>
+    </div>
 
-                    <button class="lg:hidden w-10 h-10 flex items-center justify-center">
-                        <i class="ri-menu-line ri-lg"></i>
-                    </button>
-            </div>
+    <!-- Desktop Menu -->
+    <nav class="hidden lg:flex space-x-6">
+      <a href="./index.html" class="text-gray-900 hover:text-primary font-medium">Home</a>
+      <a href="#services" class="text-gray-900 hover:text-primary font-medium">Services</a>
+      <a href="#about" class="text-gray-900 hover:text-primary font-medium">About Us</a>
+      <a href="#doctors" class="text-gray-900 hover:text-primary font-medium">Doctors</a>
+      <a href="#testimonials" class="text-gray-900 hover:text-primary font-medium">Testimonials</a>
+      <a href="#contact" class="text-gray-900 hover:text-primary font-medium">Contact</a>
+    </nav>
+
+    <!-- Call & Button -->
+    <div class="flex items-center space-x-4">
+      <div class="hidden md:flex items-center mr-4">
+        <div class="w-10 h-10 flex items-center justify-center bg-blue-50 rounded-full mr-3">
+          <i class="ri-phone-line text-primary ri-lg"></i>
         </div>
-    </header>
+        <div>
+          <p class="text-xs text-gray-500">Call Us</p>
+          <p class="text-sm font-semibold">95150 84487</p>
+        </div>
+      </div>
+      <a href="./book-now/index.html"
+        class="bg-primary text-white px-4 py-2.5 rounded-button font-medium hover:bg-blue-600 transition duration-300 whitespace-nowrap hidden md:inline-block">
+        Book Appointment
+      </a>
+      <!-- Mobile menu toggle -->
+      <button id="mobile-menu-button" class="lg:hidden text-gray-800">
+        <i class="ri-menu-line ri-xl"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Dropdown Menu -->
+  <div id="mobile-menu" class="lg:hidden hidden px-4 pb-4">
+    <nav class="flex flex-col space-y-3">
+      <a href="./index.html" class="text-gray-900 hover:text-primary font-medium">Home</a>
+      <a href="#services" class="text-gray-900 hover:text-primary font-medium">Services</a>
+      <a href="#about" class="text-gray-900 hover:text-primary font-medium">About Us</a>
+      <a href="#doctors" class="text-gray-900 hover:text-primary font-medium">Doctors</a>
+      <a href="#testimonials" class="text-gray-900 hover:text-primary font-medium">Testimonials</a>
+      <a href="#contact" class="text-gray-900 hover:text-primary font-medium">Contact</a>
+      <a href="./book-now/index.html"
+        class="bg-primary text-white px-4 py-2 rounded-button font-medium hover:bg-blue-600 transition duration-300 text-center">
+        Book Appointment
+      </a>
+    </nav>
+  </div>
+</header>
+
+<!-- Script to toggle menu -->
+<script>
+  const toggleBtn = document.getElementById('mobile-menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  toggleBtn.addEventListener('click', () => {
+    mobileMenu.classList.toggle('hidden');
+  });
+</script>
+
     <!-- Hero Section -->
     <section class="pt-24 relative bg-cover bg-center"
         style="background-image: url('https://readdy.ai/api/search-image?query=Modern%20dental%20clinic%20interior%20with%20Indian%20dental%20professionals%20in%20white%20coats%20attending%20to%20patients%2C%20bright%20and%20clean%20environment%20with%20advanced%20dental%20equipment%2C%20warm%20lighting%2C%20professional%20atmosphere%2C%20high-end%20dental%20chairs%2C%20with%20natural%20daylight%20coming%20through%20windows%2C%20showing%20a%20mix%20of%20traditional%20Indian%20elements%20and%20modern%20medical%20technology&width=1920&height=800&seq=1&orientation=landscape');">
