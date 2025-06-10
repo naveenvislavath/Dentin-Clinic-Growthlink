@@ -1,0 +1,1390 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Dentino Oral Experts</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>tailwind.config = { theme: { extend: { colors: { primary: '#1e88e5', secondary: '#ff6e40' }, borderRadius: { 'none': '0px', 'sm': '4px', DEFAULT: '8px', 'md': '12px', 'lg': '16px', 'xl': '20px', '2xl': '24px', '3xl': '32px', 'full': '9999px', 'button': '8px' } } } }</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <style>
+        :where([class^="ri-"])::before {
+            content: "\f3c2";
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .timeline-item:last-child .timeline-line {
+            display: none;
+        }
+
+        .doctor-card:hover .doctor-overlay {
+            opacity: 1;
+        }
+
+        .gallery-item {
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .gallery-item img {
+            transition: transform 0.5s ease;
+        }
+
+        .custom-checkbox {
+            position: relative;
+            padding-left: 30px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .custom-checkbox input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 20px;
+            width: 20px;
+            background-color: #fff;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .custom-checkbox:hover input~.checkmark {
+            border-color: #ccc;
+        }
+
+        .custom-checkbox input:checked~.checkmark {
+            background-color: #1e88e5;
+            border-color: #1e88e5;
+        }
+
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+
+        .custom-checkbox input:checked~.checkmark:after {
+            display: block;
+        }
+
+        .custom-checkbox .checkmark:after {
+            left: 6px;
+            top: 2px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        .language-selector {
+            position: relative;
+        }
+
+        .language-options {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            z-index: 50;
+            min-width: 120px;
+        }
+
+        .language-selector:hover .language-options {
+            display: block;
+        }
+
+        .modal-backdrop {
+            background-color: rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-backdrop.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            transform: translateY(-20px);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .modal-backdrop.active .modal-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50">
+    <!-- Appointment Modal -->
+    <div id="appointment-modal" class="modal-backdrop fixed inset-0 z-50 flex items-center justify-center">
+        <div class="modal-content bg-white rounded-lg shadow-xl w-full max-w-md mx-4">
+            <div class="flex justify-between items-center p-6 border-b">
+                <h3 class="text-xl font-semibold text-gray-900">Book Your Appointment</h3>
+                <button id="close-appointment-modal" class="text-gray-400 hover:text-gray-500">
+                    <i class="ri-close-line ri-lg"></i>
+                </button>
+            </div>
+            <form id="appointment-form" action="https://readdy.ai/api/form/d11tavkfpsfnaqn0abj0" method="POST"
+                class="p-6">
+                <div class="space-y-4">
+                    <div>
+                        <label for="appointment-name" class="block text-sm font-medium text-gray-700 mb-1">Full
+                            Name</label>
+                        <input type="text" id="appointment-name" name="name" required maxlength="500"
+                            class="w-full px-4 py-2.5 border border-gray-200 rounded focus:outline-none focus:border-primary text-sm">
+                    </div>
+                    <div>
+                        <label for="appointment-phone" class="block text-sm font-medium text-gray-700 mb-1">Phone
+                            Number</label>
+                        <input type="tel" id="appointment-phone" name="phone" required
+                            class="w-full px-4 py-2.5 border border-gray-200 rounded focus:outline-none focus:border-primary text-sm">
+                    </div>
+                    <div>
+                        <label for="appointment-email" class="block text-sm font-medium text-gray-700 mb-1">Email
+                            Address</label>
+                        <input type="email" id="appointment-email" name="email" required
+                            class="w-full px-4 py-2.5 border border-gray-200 rounded focus:outline-none focus:border-primary text-sm">
+                    </div>
+                    <div>
+                        <label for="appointment-service" class="block text-sm font-medium text-gray-700 mb-1">Select
+                            Service</label>
+                        <select id="appointment-service" name="service" required
+                            class="w-full px-4 py-2.5 border border-gray-200 rounded focus:outline-none focus:border-primary text-sm appearance-none bg-white pr-8"
+                            style="background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2216%22 height=%2216%22 viewBox=%220 0 24 24%22><path fill=%22%23a0aec0%22 d=%22M7 10l5 5 5-5z%22/></svg>'); background-repeat: no-repeat; background-position: right 10px center;">
+                            <option value="">Choose a service</option>
+                            <option value="dental-implants">Dental Implants</option>
+                            <option value="orthodontics">Orthodontics</option>
+                            <option value="root-canal">Root Canal Treatment</option>
+                            <option value="cosmetic-dentistry">Cosmetic Dentistry</option>
+                            <option value="pediatric-dentistry">Pediatric Dentistry</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="appointment-date" class="block text-sm font-medium text-gray-700 mb-1">Preferred
+                            Date</label>
+                        <input type="date" id="appointment-date" name="date" required
+                            class="w-full px-4 py-2.5 border border-gray-200 rounded focus:outline-none focus:border-primary text-sm">
+                    </div>
+                    <div>
+                        <label for="appointment-time" class="block text-sm font-medium text-gray-700 mb-1">Preferred
+                            Time</label>
+                        <select id="appointment-time" name="time" required
+                            class="w-full px-4 py-2.5 border border-gray-200 rounded focus:outline-none focus:border-primary text-sm appearance-none bg-white pr-8"
+                            style="background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2216%22 height=%2216%22 viewBox=%220 0 24 24%22><path fill=%22%23a0aec0%22 d=%22M7 10l5 5 5-5z%22/></svg>'); background-repeat: no-repeat; background-position: right 10px center;">
+                            <option value="">Select time</option>
+                            <option value="09:00">09:00 AM</option>
+                            <option value="10:00">10:00 AM</option>
+                            <option value="11:00">11:00 AM</option>
+                            <option value="12:00">12:00 PM</option>
+                            <option value="14:00">02:00 PM</option>
+                            <option value="15:00">03:00 PM</option>
+                            <option value="16:00">04:00 PM</option>
+                            <option value="17:00">05:00 PM</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="mt-6">
+                    <button type="submit"
+                        class="w-full bg-primary text-white px-6 py-3 rounded-button font-medium hover:bg-blue-600 transition duration-300 whitespace-nowrap">
+                        Confirm Booking
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Header Section -->
+    <header class="bg-white shadow-sm fixed top-0 left-0 right-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+            <div class="flex items-center">
+               <a href="./../index.html"><img src="https://static.readdy.ai/image/4c54787fd2047152d108467e5113439e/7af86d792c09289b3ae34fc4ad502412.jpeg"
+                    alt="Dentin Oral Experts" class="h-12 mr-8"></a> 
+                <nav class="hidden lg:flex space-x-6">
+                    <a href="./../index.html"
+                        data-readdy="true" class="text-gray-900 hover:text-primary font-medium">Home</a>
+                    <a href="#painfree" class="text-gray-900 hover:text-primary font-medium">Services</a>
+                    <a href="./index.html" class="text-gray-900 hover:text-primary font-medium">About Us</a>
+                    <a href="#doctors" class="text-gray-900 hover:text-primary font-medium">Doctors</a>
+                    <a href="#contact" class="text-gray-900 hover:text-primary font-medium">Contact</a>
+                </nav>
+            </div>
+            <div class="flex items-center space-x-4">
+                <div class="hidden md:flex items-center mr-6">
+                    <div class="w-10 h-10 flex items-center justify-center bg-blue-50 rounded-full mr-3">
+                        <i class="ri-phone-line text-primary ri-lg"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs text-gray-500">Call Us</p>
+                        <p class="text-sm font-semibold">95150 84487</p>
+                    </div>
+                </div>
+                
+               <a href="./../book-now/index.html"><button id="header-book-appointment"
+                    class="bg-primary text-white px-5 py-2.5 rounded-button font-medium hover:bg-blue-600 transition duration-300 whitespace-nowrap">
+                    Book Appointment
+                </button></a> 
+                <button class="lg:hidden w-10 h-10 flex items-center justify-center">
+                    <i class="ri-menu-line ri-lg"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <div class="bg-gray-100 pt-24">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center text-sm">
+                <a href="./index.html"
+                    data-readdy="true" class="text-gray-600 hover:text-primary">Home</a>
+                <i class="ri-arrow-right-s-line mx-2 text-gray-400"></i>
+                <span class="text-primary font-medium">About Us</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="relative bg-cover bg-center"
+        style="background-image: url('https://readdy.ai/api/search-image?query=Modern%2520dental%2520clinic%2520exterior%2520and%2520interior%2520view%252C%2520professional%2520medical%2520facility%2520with%2520clean%2520lines%2520and%2520contemporary%2520architecture%252C%2520glass%2520facade%2520with%2520elegant%2520entrance%252C%2520tasteful%2520landscaping%252C%2520warm%2520lighting%2520highlighting%2520the%2520building%2520features%252C%2520inviting%2520atmosphere%2520with%2520subtle%2520Indian%2520design%2520elements%252C%2520professional%2520medical%2520setting&width=1920&height=600&seq=101&orientation=landscape');">
+        <div class="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-blue-900/40"></div>
+        <div class="container mx-auto px-4 py-20 relative z-10">
+            <div class="max-w-3xl mx-auto text-center">
+                <h1 class="text-4xl md:text-5xl font-bold text-white leading-tight mb-6">About Dentino Oral Experts</h1>
+                <p class="text-white/90 text-lg mb-8">Discover our journey of excellence in dental care, our mission to
+                    transform smiles, and our commitment to pain-free dentistry.</p>
+                <div class="flex flex-wrap justify-center gap-6 mt-8">
+                    <div class="bg-white/10 backdrop-blur-sm px-6 py-4 rounded-lg">
+                        <p class="text-3xl font-bold text-white">15+</p>
+                        <p class="text-white/80 text-sm">Years of Excellence</p>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-sm px-6 py-4 rounded-lg">
+                        <p class="text-3xl font-bold text-white">20k+</p>
+                        <p class="text-white/80 text-sm">Smiles Transformed</p>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-sm px-6 py-4 rounded-lg">
+                        <p class="text-3xl font-bold text-white">50+</p>
+                        <p class="text-white/80 text-sm">Dental Experts</p>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-sm px-6 py-4 rounded-lg">
+                        <p class="text-3xl font-bold text-white">12+</p>
+                        <p class="text-white/80 text-sm">Awards & Recognitions</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Story Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-3xl mx-auto text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Our Story</h2>
+                <p class="text-gray-600">From humble beginnings to becoming a leading dental care provider in Hyderabad,
+                    our journey has been defined by a commitment to excellence and innovation in dental care.</p>
+            </div>
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <div class="lg:w-1/2">
+                    <img src="https://readdy.ai/api/search-image?query=Professional%2520Indian%2520dental%2520team%2520in%2520a%2520modern%2520clinic%252C%2520diverse%2520group%2520of%2520dentists%2520and%2520staff%2520in%2520white%2520coats%252C%2520standing%2520together%2520in%2520front%2520of%2520their%2520clinic%252C%2520warm%2520professional%2520atmosphere%252C%2520clean%2520medical%2520environment%252C%2520friendly%2520smiles%252C%2520high-quality%2520studio%2520lighting&width=600&height=500&seq=102&orientation=landscape"
+                        alt="Dentino Team" class="rounded-lg shadow-lg w-full">
+                </div>
+                <div class="lg:w-1/2">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4">The Beginning of Excellence</h3>
+                    <p class="text-gray-600 mb-6">Founded in 2010 by Dr. Suryanarayan Sharma, Dentino Oral Experts began
+                        with a vision to revolutionize dental care in Hyderabad. Dr. Sharma, having completed his
+                        advanced training in pain-free dentistry techniques in the United States, returned to India with
+                        a mission to make dental care comfortable, accessible, and anxiety-free for all patients.</p>
+                    <p class="text-gray-600 mb-6">What started as a small clinic with just three dental chairs has now
+                        grown into a state-of-the-art facility with multiple specialized departments, cutting-edge
+                        technology, and a team of over 50 dental professionals dedicated to providing exceptional care.
+                    </p>
+                    <p class="text-gray-600">Our growth has been guided by our unwavering commitment to patient comfort
+                        and satisfaction. We pioneered the concept of pain-free dentistry in Hyderabad, introducing
+                        advanced sedation techniques and gentle procedures that have transformed the dental experience
+                        for thousands of patients who previously feared dental visits.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="max-w-3xl mx-auto text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Our Journey Through the Years</h2>
+                <p class="text-gray-600">Explore the key milestones that have shaped our growth and commitment to
+                    excellence in dental care.</p>
+            </div>
+            <div class="max-w-4xl mx-auto">
+                <div class="timeline-item relative flex pb-12">
+                    <div class="timeline-left w-1/4 pr-8 text-right">
+                        <h3 class="text-xl font-semibold text-primary">2010</h3>
+                    </div>
+                    <div class="timeline-line absolute left-1/4 top-0 bottom-0 w-px bg-primary ml-[-0.5px]"></div>
+                    <div class="timeline-dot absolute left-1/4 w-4 h-4 rounded-full bg-primary ml-[-8px] mt-1.5"></div>
+                    <div class="timeline-right w-3/4 pl-8">
+                        <h4 class="text-lg font-semibold text-gray-800 mb-2">Founding of Dentino Oral Experts</h4>
+                        <p class="text-gray-600">Dr. Suryanarayan Sharma established the first Dentino clinic in
+                            Gowlidoddy with a vision to provide pain-free dental care.</p>
+                    </div>
+                </div>
+                <div class="timeline-item relative flex pb-12">
+                    <div class="timeline-left w-1/4 pr-8 text-right">
+                        <h3 class="text-xl font-semibold text-primary">2013</h3>
+                    </div>
+                    <div class="timeline-line absolute left-1/4 top-0 bottom-0 w-px bg-primary ml-[-0.5px]"></div>
+                    <div class="timeline-dot absolute left-1/4 w-4 h-4 rounded-full bg-primary ml-[-8px] mt-1.5"></div>
+                    <div class="timeline-right w-3/4 pl-8">
+                        <h4 class="text-lg font-semibold text-gray-800 mb-2">Introduction of Advanced Implant Technology
+                        </h4>
+                        <p class="text-gray-600">Became one of the first clinics in Hyderabad to offer computer-guided
+                            implant placement and same-day implant procedures.</p>
+                    </div>
+                </div>
+                <div class="timeline-item relative flex pb-12">
+                    <div class="timeline-left w-1/4 pr-8 text-right">
+                        <h3 class="text-xl font-semibold text-primary">2015</h3>
+                    </div>
+                    <div class="timeline-line absolute left-1/4 top-0 bottom-0 w-px bg-primary ml-[-0.5px]"></div>
+                    <div class="timeline-dot absolute left-1/4 w-4 h-4 rounded-full bg-primary ml-[-8px] mt-1.5"></div>
+                    <div class="timeline-right w-3/4 pl-8">
+                        <h4 class="text-lg font-semibold text-gray-800 mb-2">Facility Expansion</h4>
+                        <p class="text-gray-600">Expanded to a larger facility with specialized departments for
+                            orthodontics, pediatric dentistry, and cosmetic procedures.</p>
+                    </div>
+                </div>
+                <div class="timeline-item relative flex pb-12">
+                    <div class="timeline-left w-1/4 pr-8 text-right">
+                        <h3 class="text-xl font-semibold text-primary">2017</h3>
+                    </div>
+                    <div class="timeline-line absolute left-1/4 top-0 bottom-0 w-px bg-primary ml-[-0.5px]"></div>
+                    <div class="timeline-dot absolute left-1/4 w-4 h-4 rounded-full bg-primary ml-[-8px] mt-1.5"></div>
+                    <div class="timeline-right w-3/4 pl-8">
+                        <h4 class="text-lg font-semibold text-gray-800 mb-2">Recognition for Excellence</h4>
+                        <p class="text-gray-600">Received the "Best Dental Clinic in Telangana" award from the Indian
+                            Dental Association for our commitment to quality care.</p>
+                    </div>
+                </div>
+                <div class="timeline-item relative flex pb-12">
+                    <div class="timeline-left w-1/4 pr-8 text-right">
+                        <h3 class="text-xl font-semibold text-primary">2020</h3>
+                    </div>
+                    <div class="timeline-line absolute left-1/4 top-0 bottom-0 w-px bg-primary ml-[-0.5px]"></div>
+                    <div class="timeline-dot absolute left-1/4 w-4 h-4 rounded-full bg-primary ml-[-8px] mt-1.5"></div>
+                    <div class="timeline-right w-3/4 pl-8">
+                        <h4 class="text-lg font-semibold text-gray-800 mb-2">10th Anniversary & Digital Transformation
+                        </h4>
+                        <p class="text-gray-600">Celebrated 10 years of excellence and implemented fully digital
+                            workflows with 3D scanning and CAD/CAM technology.</p>
+                    </div>
+                </div>
+                <div class="timeline-item relative flex">
+                    <div class="timeline-left w-1/4 pr-8 text-right">
+                        <h3 class="text-xl font-semibold text-primary">2023</h3>
+                    </div>
+                    <div class="timeline-line absolute left-1/4 top-0 bottom-0 w-px bg-primary ml-[-0.5px]"></div>
+                    <div class="timeline-dot absolute left-1/4 w-4 h-4 rounded-full bg-primary ml-[-8px] mt-1.5"></div>
+                    <div class="timeline-right w-3/4 pl-8">
+                        <h4 class="text-lg font-semibold text-gray-800 mb-2">Advanced Pain-Free Dentistry Center</h4>
+                        <p class="text-gray-600">Launched a specialized center dedicated to pain-free dentistry with
+                            advanced sedation options and anxiety management techniques.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission & Vision Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div class="bg-blue-50 p-8 rounded-lg shadow-md">
+                    <div class="w-16 h-16 flex items-center justify-center bg-primary rounded-full mb-6">
+                        <i class="ri-focus-3-line text-white ri-xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4">Our Mission</h3>
+                    <p class="text-gray-600 mb-6">To transform dental care by eliminating pain and anxiety from the
+                        dental experience, making oral health accessible and comfortable for everyone through innovative
+                        techniques, compassionate care, and patient education.</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="ri-check-line text-primary ri-lg mt-0.5 mr-2"></i>
+                            <span class="text-gray-600">Provide exceptional, pain-free dental treatments</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="ri-check-line text-primary ri-lg mt-0.5 mr-2"></i>
+                            <span class="text-gray-600">Make advanced dental care accessible to all</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="ri-check-line text-primary ri-lg mt-0.5 mr-2"></i>
+                            <span class="text-gray-600">Educate patients about preventive oral health</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="ri-check-line text-primary ri-lg mt-0.5 mr-2"></i>
+                            <span class="text-gray-600">Create a comfortable, anxiety-free environment</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-blue-50 p-8 rounded-lg shadow-md">
+                    <div class="w-16 h-16 flex items-center justify-center bg-primary rounded-full mb-6">
+                        <i class="ri-eye-line text-white ri-xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4">Our Vision</h3>
+                    <p class="text-gray-600 mb-6">To be the leading dental care provider recognized for revolutionizing
+                        the dental experience through pain-free techniques, technological innovation, and
+                        patient-centered care, setting new standards of excellence in oral healthcare.</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="ri-check-line text-primary ri-lg mt-0.5 mr-2"></i>
+                            <span class="text-gray-600">Pioneer advancements in pain-free dentistry</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="ri-check-line text-primary ri-lg mt-0.5 mr-2"></i>
+                            <span class="text-gray-600">Expand our reach to serve more communities</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="ri-check-line text-primary ri-lg mt-0.5 mr-2"></i>
+                            <span class="text-gray-600">Train the next generation of compassionate dental
+                                professionals</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="ri-check-line text-primary ri-lg mt-0.5 mr-2"></i>
+                            <span class="text-gray-600">Integrate cutting-edge technology with human-centered
+                                care</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Values Section -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="max-w-3xl mx-auto text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Our Core Values</h2>
+                <p class="text-gray-600">The principles that guide our practice and define our approach to dental care.
+                </p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300">
+                    <div class="w-16 h-16 flex items-center justify-center bg-blue-100 rounded-full mb-6">
+                        <i class="ri-heart-pulse-line text-primary ri-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Compassionate Care</h3>
+                    <p class="text-gray-600">We treat each patient with empathy, understanding, and respect, recognizing
+                        their unique needs and concerns.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300">
+                    <div class="w-16 h-16 flex items-center justify-center bg-blue-100 rounded-full mb-6">
+                        <i class="ri-award-line text-primary ri-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Excellence</h3>
+                    <p class="text-gray-600">We strive for the highest standards in clinical care, service, and
+                        professional development to deliver exceptional results.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300">
+                    <div class="w-16 h-16 flex items-center justify-center bg-blue-100 rounded-full mb-6">
+                        <i class="ri-lightbulb-line text-primary ri-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Innovation</h3>
+                    <p class="text-gray-600">We embrace advanced technologies and techniques to continuously improve our
+                        services and patient outcomes.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300">
+                    <div class="w-16 h-16 flex items-center justify-center bg-blue-100 rounded-full mb-6">
+                        <i class="ri-shield-check-line text-primary ri-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Integrity</h3>
+                    <p class="text-gray-600">We maintain the highest ethical standards in all our interactions,
+                        providing honest recommendations and transparent care.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pain-Free Approach Section -->
+    <section  id="painfree" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-3xl mx-auto text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Our Pain-Free Approach</h2>
+                <p class="text-gray-600">Discover how we've revolutionized dental care by making comfort and anxiety
+                    management central to our treatment philosophy.</p>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
+                <div>
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4">The Science of Comfort</h3>
+                    <p class="text-gray-600 mb-6">At Dentino Oral Experts, we've developed a comprehensive approach to
+                        pain-free dentistry that addresses both physical discomfort and psychological anxiety. Our
+                        methodology combines advanced technology, specialized techniques, and personalized care to
+                        ensure a comfortable experience for every patient.</p>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div
+                                class="w-12 h-12 flex items-center justify-center bg-blue-100 rounded-full mr-4 flex-shrink-0">
+                                <i class="ri-syringe-line text-primary ri-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-gray-800 mb-1">Advanced Local Anesthesia</h4>
+                                <p class="text-gray-600">We use computer-controlled delivery systems and buffered
+                                    anesthetics for painless injections and more effective numbing.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div
+                                class="w-12 h-12 flex items-center justify-center bg-blue-100 rounded-full mr-4 flex-shrink-0">
+                                <i class="ri-mental-health-line text-primary ri-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-gray-800 mb-1">Sedation Options</h4>
+                                <p class="text-gray-600">From mild nitrous oxide to oral sedation and IV sedation, we
+                                    offer multiple options tailored to your anxiety level and procedure complexity.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div
+                                class="w-12 h-12 flex items-center justify-center bg-blue-100 rounded-full mr-4 flex-shrink-0">
+                                <i class="ri-laser-line text-primary ri-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-gray-800 mb-1">Minimally Invasive Techniques</h4>
+                                <p class="text-gray-600">Laser dentistry, air abrasion, and other modern approaches that
+                                    reduce or eliminate drilling, cutting, and discomfort.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <img src="./../about-us/images/img-01.jpg"
+                        alt="Pain-Free Dentistry" class="rounded-lg shadow-lg w-full">
+                </div>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="order-2 lg:order-1">
+                    <img src="./../about-us/images/img-02.jpg"
+                        alt="Comfort Features" class="rounded-lg shadow-lg w-full">
+                </div>
+                <div class="order-1 lg:order-2">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4">Creating a Comfort-First Environment</h3>
+                    <p class="text-gray-600 mb-6">Beyond clinical techniques, we've designed every aspect of our
+                        practice to reduce anxiety and enhance comfort. From the moment you enter our clinic, you'll
+                        experience a different kind of dental visit.</p>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div
+                                class="w-12 h-12 flex items-center justify-center bg-blue-100 rounded-full mr-4 flex-shrink-0">
+                                <i class="ri-home-smile-line text-primary ri-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-gray-800 mb-1">Calming Environment</h4>
+                                <p class="text-gray-600">Soothing decor, aromatherapy, and noise-cancelling headphones
+                                    create a peaceful atmosphere that helps reduce anxiety.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div
+                                class="w-12 h-12 flex items-center justify-center bg-blue-100 rounded-full mr-4 flex-shrink-0">
+                                <i class="ri-movie-line text-primary ri-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-gray-800 mb-1">Distraction Techniques</h4>
+                                <p class="text-gray-600">Ceiling-mounted TVs, virtual reality headsets, and music
+                                    options help take your mind off the procedure.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div
+                                class="w-12 h-12 flex items-center justify-center bg-blue-100 rounded-full mr-4 flex-shrink-0">
+                                <i class="ri-user-voice-line text-primary ri-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-gray-800 mb-1">Communication & Control</h4>
+                                <p class="text-gray-600">We establish clear signals so you can pause treatment at any
+                                    time, giving you a sense of control throughout your visit.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Awards & Recognition Section -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="max-w-3xl mx-auto text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Awards & Recognition</h2>
+                <p class="text-gray-600">Our commitment to excellence has been recognized by leading dental associations
+                    and organizations.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300">
+                    <div class="w-16 h-16 flex items-center justify-center bg-blue-100 rounded-full mb-6">
+                        <i class="ri-award-fill text-primary ri-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Best Dental Clinic in Telangana</h3>
+                    <p class="text-gray-500 text-sm mb-4">Indian Dental Association, 2017</p>
+                    <p class="text-gray-600">Recognized for our exceptional standards of patient care, advanced
+                        technology, and innovative pain-free approach.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300">
+                    <div class="w-16 h-16 flex items-center justify-center bg-blue-100 rounded-full mb-6">
+                        <i class="ri-medal-fill text-primary ri-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Excellence in Dental Implantology</h3>
+                    <p class="text-gray-500 text-sm mb-4">Association of Dental Implantologists, 2019</p>
+                    <p class="text-gray-600">Awarded for our pioneering work in computer-guided implant placement and
+                        same-day implant procedures.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300">
+                    <div class="w-16 h-16 flex items-center justify-center bg-blue-100 rounded-full mb-6">
+                        <i class="ri-star-fill text-primary ri-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Patient Comfort Innovation Award</h3>
+                    <p class="text-gray-500 text-sm mb-4">International Congress of Oral Implantologists, 2021</p>
+                    <p class="text-gray-600">Recognized for our comprehensive approach to anxiety management and
+                        pain-free dental procedures.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300">
+                    <div class="w-16 h-16 flex items-center justify-center bg-blue-100 rounded-full mb-6">
+                        <i class="ri-building-4-fill text-primary ri-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Healthcare Facility Design Excellence</h3>
+                    <p class="text-gray-500 text-sm mb-4">Healthcare Design Forum, 2022</p>
+                    <p class="text-gray-600">Awarded for our clinic's patient-centered design that promotes comfort and
+                        reduces anxiety.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300">
+                    <div class="w-16 h-16 flex items-center justify-center bg-blue-100 rounded-full mb-6">
+                        <i class="ri-service-fill text-primary ri-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Outstanding Patient Service</h3>
+                    <p class="text-gray-500 text-sm mb-4">Hyderabad Medical Association, 2023</p>
+                    <p class="text-gray-600">Recognized for exceptional patient satisfaction scores and our
+                        patient-first approach to dental care.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300">
+                    <div class="w-16 h-16 flex items-center justify-center bg-blue-100 rounded-full mb-6">
+                        <i class="ri-community-fill text-primary ri-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Community Service Excellence</h3>
+                    <p class="text-gray-500 text-sm mb-4">Rotary Club of Hyderabad, 2023</p>
+                    <p class="text-gray-600">Awarded for our commitment to providing free dental care to underserved
+                        communities through outreach programs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Team Section -->
+    <section id="doctors" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-3xl mx-auto text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Meet Our Expert Team</h2>
+                <p class="text-gray-600">Our team of highly qualified specialists is committed to providing exceptional
+                    care with a gentle touch.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="doctor-card bg-white rounded-lg shadow-md overflow-hidden relative">
+                    <img src="./../assets/Dr.-Surya.jpg"
+                        alt="Dr. Suryanarayan Sharma" class="w-full h-64 object-cover object-top">
+                    <div class="p-5">
+                        <h3 class="text-xl font-semibold text-gray-800">Dr. Suryanarayan Sharma</h3>
+                        <p class="text-primary font-medium">Oral & Maxillofacial Pathologist and Implantologist</p>
+                        <p class="text-gray-600 text-sm mt-2">MDS, 12+ years experience in orthodontics and dental
+                            alignment procedures.</p>
+                    </div>
+                    <div
+                        class="doctor-overlay absolute inset-0 bg-primary/80 flex items-center justify-center opacity-0 transition-opacity duration-300">
+                        <div class="text-center p-6">
+                            <h3 class="text-xl font-semibold text-white mb-2">Dr. Suryanarayan Sharma</h3>
+                            <p class="text-white/90 mb-4">Trained in the US and Europe, Dr. Sharma is a pioneer in
+                                pain-free dentistry techniques and has performed over 5,000 successful implant
+                                procedures.</p>
+                            <a href="./../book-now/index.html"><button
+                                class="bg-white text-primary px-6 py-2.5 rounded-button font-medium hover:bg-gray-100 transition duration-300 whitespace-nowrap">
+                                Book Appointment
+                            </button></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="doctor-card bg-white rounded-lg shadow-md overflow-hidden relative">
+                    <img src="https://readdy.ai/api/search-image?query=Professional%2520portrait%2520of%2520an%2520Indian%2520female%2520dentist%2520in%2520her%252040s%2520wearing%2520a%2520white%2520coat%252C%2520confident%2520smile%252C%2520professional%2520setting%252C%2520high%2520quality%2520studio%2520lighting%252C%2520clean%2520background%252C%2520professional%2520headshot%2520style&width=400&height=500&seq=106&orientation=portrait"
+                        alt="Dr. Anjali Gupta" class="w-full h-64 object-cover object-top">
+                    <div class="p-5">
+                        <h3 class="text-xl font-semibold text-gray-800">Dr. Rekha Talpa</h3>
+                        <p class="text-primary font-medium">Cosmetic Dental Surgeon</p>
+                        <p class="text-gray-600 text-sm mt-2">MDS, 10+ years experience in cosmetic and restorative
+                            dentistry.</p>
+                    </div>
+                    <div
+                        class="doctor-overlay absolute inset-0 bg-primary/80 flex items-center justify-center opacity-0 transition-opacity duration-300">
+                        <div class="text-center p-6">
+                            <h3 class="text-xl font-semibold text-white mb-2">Dr. Rekha Talpa</h3>
+                            <p class="text-white/90 mb-4">Specializes in painless root canal treatments using
+                                microscopic techniques. Certified in advanced local anesthesia and sedation protocols.
+                            </p>
+                            <a href="./../book-now/index.html"><button
+                                class="bg-white text-primary px-6 py-2.5 rounded-button font-medium hover:bg-gray-100 transition duration-300 whitespace-nowrap">
+                                Book Appointment
+                            </button></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="doctor-card bg-white rounded-lg shadow-md overflow-hidden relative">
+                    <img src="https://readdy.ai/api/search-image?query=Professional%2520portrait%2520of%2520an%2520Indian%2520male%2520dentist%2520in%2520his%252040s%2520wearing%2520a%2520white%2520coat%252C%2520confident%2520smile%252C%2520professional%2520setting%252C%2520high%2520quality%2520studio%2520lighting%252C%2520clean%2520background%252C%2520professional%2520headshot%2520style&width=400&height=500&seq=107&orientation=portrait"
+                        alt="Dr. Rajesh Sharma" class="w-full h-64 object-cover object-top">
+                    <div class="p-5">
+                        <h3 class="text-xl font-semibold text-gray-800">Dr. Sreeja</h3>
+                        <p class="text-primary font-medium">Cosmetic Dental Surgeon</p>
+                        <p class="text-gray-600 text-sm mt-2">MDS, 15+ years experience in oral and maxillofacial
+                            surgery.</p>
+                    </div>
+                    <div
+                        class="doctor-overlay absolute inset-0 bg-primary/80 flex items-center justify-center opacity-0 transition-opacity duration-300">
+                        <div class="text-center p-6">
+                            <h3 class="text-xl font-semibold text-white mb-2">Dr. Sreeja</h3>
+                            <p class="text-white/90 mb-4">Expert in invisible orthodontics including Invisalign and
+                                lingual braces. Specializes in comfortable orthodontic solutions for adults and
+                                children.</p>
+                            <a href="./../book-now/index.html"><button
+                                class="bg-white text-primary px-6 py-2.5 rounded-button font-medium hover:bg-gray-100 transition duration-300 whitespace-nowrap">
+                                Book Appointment
+                            </button></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="doctor-card bg-white rounded-lg shadow-md overflow-hidden relative">
+                    <img src="https://readdy.ai/api/search-image?query=Professional%2520portrait%2520of%2520an%2520Indian%2520female%2520dentist%2520in%2520her%252030s%2520wearing%2520a%2520white%2520coat%252C%2520confident%2520smile%252C%2520professional%2520setting%252C%2520high%2520quality%2520studio%2520lighting%252C%2520clean%2520background%252C%2520professional%2520headshot%2520style&width=400&height=500&seq=108&orientation=portrait"
+                        alt="Dr. Priya Patel" class="w-full h-64 object-cover object-top">
+                    <div class="p-5">
+                        <h3 class="text-xl font-semibold text-gray-800">Dr. Sandeep Adiga</h3>
+                        <p class="text-primary font-medium">Orthodontist</p>
+                        <p class="text-gray-600 text-sm mt-2">MDS, 8+ years experience in root canal treatments and
+                            dental pulp therapies.</p>
+                    </div>
+                    <div
+                        class="doctor-overlay absolute inset-0 bg-primary/80 flex items-center justify-center opacity-0 transition-opacity duration-300">
+                        <div class="text-center p-6">
+                            <h3 class="text-xl font-semibold text-white mb-2">Dr. Sandeep Adiga</h3>
+                            <p class="text-white/90 mb-4">Specializes in smile makeovers, veneers, and aesthetic dental
+                                procedures. Trained in the latest digital smile design techniques.</p>
+                            <a href="./../book-now/index.html"><button
+                                class="bg-white text-primary px-6 py-2.5 rounded-button font-medium hover:bg-gray-100 transition duration-300 whitespace-nowrap">
+                                Book Appointment
+                            </button></a>
+                        </div>
+                    </div>
+                </div>
+               
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Facility Gallery Section -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="max-w-3xl mx-auto text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Our Facility</h2>
+                <p class="text-gray-600">Take a virtual tour of our state-of-the-art dental clinic designed for your
+                    comfort and care.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md">
+                    <img src="https://readdy.ai/api/search-image?query=Modern%2520dental%2520clinic%2520reception%2520area%2520with%2520elegant%2520design%252C%2520comfortable%2520seating%252C%2520reception%2520desk%252C%2520warm%2520lighting%252C%2520indoor%2520plants%252C%2520professional%2520atmosphere%252C%2520clean%2520and%2520welcoming%2520environment&width=600&height=400&seq=111&orientation=landscape"
+                        alt="Reception Area" class="w-full h-64 object-cover">
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md">
+                    <img src="https://readdy.ai/api/search-image?query=Advanced%2520dental%2520treatment%2520room%2520with%2520high-tech%2520dental%2520chair%252C%2520digital%2520screens%252C%2520modern%2520dental%2520equipment%252C%2520clean%2520and%2520sterile%2520environment%252C%2520bright%2520lighting%252C%2520professional%2520atmosphere&width=600&height=400&seq=112&orientation=landscape"
+                        alt="Treatment Room" class="w-full h-64 object-cover">
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md">
+                    <img src="https://readdy.ai/api/search-image?query=Dental%2520imaging%2520center%2520with%2520advanced%25203D%2520scanner%252C%2520digital%2520X-ray%2520equipment%252C%2520computer%2520screens%2520showing%2520dental%2520scans%252C%2520clean%2520and%2520sterile%2520environment%252C%2520bright%2520lighting%252C%2520professional%2520atmosphere&width=600&height=400&seq=113&orientation=landscape"
+                        alt="Imaging Center" class="w-full h-64 object-cover">
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md">
+                    <img src="https://readdy.ai/api/search-image?query=Modern%2520dental%2520sterilization%2520center%2520with%2520advanced%2520equipment%252C%2520autoclave%2520machines%252C%2520organized%2520instrument%2520storage%252C%2520clean%2520and%2520sterile%2520environment%252C%2520bright%2520lighting%252C%2520professional%2520atmosphere&width=600&height=400&seq=114&orientation=landscape"
+                        alt="Sterilization Center" class="w-full h-64 object-cover">
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md">
+                    <img src="https://readdy.ai/api/search-image?query=Comfortable%2520dental%2520patient%2520lounge%2520with%2520relaxation%2520amenities%252C%2520comfortable%2520seating%252C%2520refreshment%2520station%252C%2520entertainment%2520options%252C%2520warm%2520lighting%252C%2520calming%2520decor%252C%2520professional%2520atmosphere&width=600&height=400&seq=115&orientation=landscape"
+                        alt="Patient Lounge" class="w-full h-64 object-cover">
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md">
+                    <img src="https://readdy.ai/api/search-image?query=Modern%2520dental%2520consultation%2520room%2520with%2520comfortable%2520seating%252C%2520digital%2520screens%2520for%2520patient%2520education%252C%2520dental%2520models%252C%2520warm%2520lighting%252C%2520professional%2520atmosphere%252C%2520clean%2520environment&width=600&height=400&seq=116&orientation=landscape"
+                        alt="Consultation Room" class="w-full h-64 object-cover">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Involvement Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-3xl mx-auto text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Community Involvement</h2>
+                <p class="text-gray-600">We believe in giving back to the community through various outreach programs
+                    and initiatives.</p>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <img src="https://readdy.ai/api/search-image?query=Dental%2520outreach%2520camp%2520in%2520rural%2520Indian%2520village%252C%2520dentists%2520providing%2520free%2520check-ups%2520to%2520children%2520and%2520adults%252C%2520portable%2520dental%2520equipment%252C%2520community%2520setting%252C%2520natural%2520lighting%252C%2520professional%2520medical%2520service%2520in%2520underserved%2520area&width=600&height=500&seq=117&orientation=landscape"
+                        alt="Community Outreach" class="rounded-lg shadow-lg w-full">
+                </div>
+                <div>
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4">Our Commitment to Service</h3>
+                    <p class="text-gray-600 mb-6">At Dentino Oral Experts, we believe that quality dental care should be
+                        accessible to everyone. Our team regularly participates in community outreach programs to bring
+                        essential dental services to underserved populations.</p>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div
+                                class="w-12 h-12 flex items-center justify-center bg-blue-100 rounded-full mr-4 flex-shrink-0">
+                                <i class="ri-health-book-line text-primary ri-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-gray-800 mb-1">Free Dental Camps</h4>
+                                <p class="text-gray-600">We organize quarterly dental camps in rural areas around
+                                    Hyderabad, providing free check-ups, treatments, and oral health education.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div
+                                class="w-12 h-12 flex items-center justify-center bg-blue-100 rounded-full mr-4 flex-shrink-0">
+                                <i class="ri-school-line text-primary ri-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-gray-800 mb-1">School Dental Programs</h4>
+                                <p class="text-gray-600">Our team visits local schools to conduct dental check-ups and
+                                    educate children about proper oral hygiene practices.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div
+                                class="w-12 h-12 flex items-center justify-center bg-blue-100 rounded-full mr-4 flex-shrink-0">
+                                <i class="ri-hand-heart-line text-primary ri-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-gray-800 mb-1">Charity Treatments</h4>
+                                <p class="text-gray-600">We provide free or subsidized treatments for patients from
+                                    economically disadvantaged backgrounds through our Smile Foundation initiative.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-primary">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">Experience Our Pain-Free Approach</h2>
+            <p class="text-white/90 text-lg mb-8 max-w-2xl mx-auto">Schedule your appointment today and discover how
+                comfortable dental care can be at Dentino Oral Experts.</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="./../book-now/index.html"><button id="cta-book-appointment"
+                    class="bg-white text-primary px-8 py-3.5 rounded-button font-medium hover:bg-gray-100 transition duration-300 whitespace-nowrap">
+                    Book Your Appointment
+                </button></a>
+                <a href="./../index.html"
+                    data-readdy="true"
+                    class="bg-transparent text-white border border-white px-8 py-3.5 rounded-button font-medium hover:bg-white/10 transition duration-300 whitespace-nowrap">
+                    Back to Home
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-blue-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Contact Us</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Have questions or ready to schedule your appointment? Reach
+                    out to us through any of these channels.</p>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="lg:col-span-1">
+                    <div class="bg-primary p-6 rounded-lg shadow-md">
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div
+                                    class="w-12 h-12 flex items-center justify-center bg-blue-100 rounded-full mr-4 flex-shrink-0">
+                                    <i class="ri-map-pin-line text-primary ri-lg"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-semibold text-black mb-1">Our Location</h3>
+                                    <p class="text-white">opp. Jayabheri The Nirvana and Art boutique
+                                        hotel<br>Gowlidoddy, Hyderabad, Telangana 500075</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div
+                                    class="w-12 h-12 flex items-center justify-center bg-blue-100 rounded-full mr-4 flex-shrink-0">
+                                    <i class="ri-phone-line text-primary ri-lg"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-semibold text-white mb-1">Phone Numbers</h3>
+                                    <p class="text-black">Appointments & Emergency: 95150 84487</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div
+                                    class="w-12 h-12 flex items-center justify-center bg-blue-100 rounded-full mr-4 flex-shrink-0">
+                                    <i class="ri-time-line text-primary ri-lg"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-semibold text-black mb-1">Working Hours</h3>
+                                    <p class="text-white">
+                                        Monday: 9:00 AM - 9:00 PM<br>
+                                        Tuesday: 9:00 AM - 9:00 PM<br>
+                                        Wednesday: 9:30 AM - 9:00 PM<br>
+                                        Thursday: 9:00 AM - 9:00 PM<br>
+                                        Friday: 9:00 AM - 9:00 PM<br>
+                                        Saturday: 9:00 AM - 9:00 PM<br>
+                                        Sunday: 9:00 AM - 6:00 PM
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div
+                                    class="w-12 h-12 flex items-center justify-center bg-blue-100 rounded-full mr-4 flex-shrink-0">
+                                    <i class="ri-mail-line text-primary ri-lg"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-semibold text-black mb-1">Email</h3>
+                                    <p class="text-white">
+                                        info@dentinoralexperts.com<br>appointments@dentinoralexperts.com</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-8">
+                            <h3 class="text-lg font-semibold text-gray-800 mb-4">Follow Us</h3>
+                            <div class="flex space-x-4">
+                                <a href="https://www.facebook.com/suryatvd"
+                                    class="w-10 h-10 flex items-center justify-center bg-blue-100 rounded-full hover:bg-primary hover:text-white transition duration-300">
+                                    <i class="ri-facebook-fill"></i>
+                                </a>
+                                <a href="https://www.instagram.com/drsuryat/"
+                                    class="w-10 h-10 flex items-center justify-center bg-blue-100 rounded-full hover:bg-primary hover:text-white transition duration-300">
+                                    <i class="ri-instagram-line"></i>
+                                </a>
+                                <a href="#"
+                                    class="w-10 h-10 flex items-center justify-center bg-blue-100 rounded-full hover:bg-primary hover:text-white transition duration-300">
+                                    <i class="ri-twitter-x-line"></i>
+                                </a>
+                                <a href="#"
+                                    class="w-10 h-10 flex items-center justify-center bg-blue-100 rounded-full hover:bg-primary hover:text-white transition duration-300">
+                                    <i class="ri-linkedin-fill"></i>
+                                </a>
+                                <a href="#"
+                                    class="w-10 h-10 flex items-center justify-center bg-blue-100 rounded-full hover:bg-primary hover:text-white transition duration-300">
+                                    <i class="ri-youtube-line"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="lg:col-span-2">
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-6">Send Us a Message</h3>
+                        <form id="contact-form" action="https://readdy.ai/api/form/d11tavkfpsfnaqn0abj0" method="POST">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                                <div>
+                                    <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Full
+                                        Name</label>
+                                    <input type="text" id="name" name="name" required maxlength="500"
+                                        class="w-full px-4 py-3 border border-gray-200 rounded focus:outline-none focus:border-primary">
+                                </div>
+                                <div>
+                                    <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email
+                                        Address</label>
+                                    <input type="email" id="email" name="email" required maxlength="500"
+                                        class="w-full px-4 py-3 border border-gray-200 rounded focus:outline-none focus:border-primary">
+                                </div>
+                                <div>
+                                    <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">Phone
+                                        Number</label>
+                                    <input type="tel" id="phone" name="phone" required maxlength="500"
+                                        class="w-full px-4 py-3 border border-gray-200 rounded focus:outline-none focus:border-primary">
+                                </div>
+                                <div>
+                                    <label for="subject"
+                                        class="block text-sm font-medium text-gray-700 mb-2">Subject</label>
+                                    <input type="text" id="subject" name="subject" required maxlength="500"
+                                        class="w-full px-4 py-3 border border-gray-200 rounded focus:outline-none focus:border-primary">
+                                </div>
+                            </div>
+                            <div class="mb-6">
+                                <label for="message" class="block text-sm font-medium text-gray-700 mb-2">Your
+                                    Message</label>
+                                <textarea id="message" name="message" rows="5" required maxlength="500"
+                                    class="w-full px-4 py-3 border border-gray-200 rounded focus:outline-none focus:border-primary"></textarea>
+                            </div>
+                            <button type="submit"
+                                class="bg-primary text-white px-8 py-3.5 rounded-button font-medium hover:bg-blue-600 transition duration-300 whitespace-nowrap">
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="h-96 relative">
+        <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.626600511536!2d78.3242791!3d17.4296983!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb93118f9a589d%3A0x4e0609f4b87a566d!2sDENTIN%20Dental%20clinic%20Best%20dentist%20for%20Dental%20implants%20%7C%20Invisalign%2C%20V%20clear%20aligners%2C%20Root%20Canal%2C%20Braces%2C%20Teeth%20Cleaning!5e0!3m2!1sen!2sin!4v1749275701855!5m2!1sen!2sin"
+            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <div class="absolute top-4 left-4 bg-white p-4 rounded-lg shadow-md">
+            <h3 class="text-lg font-semibold text-gray-800 mb-2">Find Us Here</h3>
+            <p class="text-gray-600">opp. Jayabheri The Nirvana and Art boutique hotel<br>Gowlidoddy, Hyderabad,
+                Telangana 500075</p>
+            <button
+                class="mt-4 bg-primary text-white px-4 py-2 rounded-button font-medium hover:bg-blue-600 transition duration-300 whitespace-nowrap text-sm"
+                onclick="window.open('https://goo.gl/maps/YOUR_GOOGLE_MAPS_LINK', '_blank')">
+                Get Directions
+            </button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-16 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <div>
+                    <img src="./../assets/dental footer 180x120.png"
+                        alt="Dentin Oral Experts" class="h-12 mb-6">
+                    <p class="text-gray-400 mb-6">Providing exceptional dental care with advanced technology and
+                        compassionate service since 2010.</p>
+                    <div class="flex space-x-4">
+                        <a href="https://www.facebook.com/suryatvd"
+                            class="w-10 h-10 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary transition duration-300">
+                            <i class="ri-facebook-fill"></i>
+                        </a>
+                        <a href="https://www.instagram.com/drsuryat/"
+                            class="w-10 h-10 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary transition duration-300">
+                            <i class="ri-instagram-line"></i>
+                        </a>
+                        <a href="#"
+                            class="w-10 h-10 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary transition duration-300">
+                            <i class="ri-twitter-x-line"></i>
+                        </a>
+                        <a href="#"
+                            class="w-10 h-10 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary transition duration-300">
+                            <i class="ri-linkedin-fill"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-6">Quick Links</h3>
+                    <ul class="space-y-3">
+                        <li><a href="./../index.html"
+                                data-readdy="true"
+                                class="text-gray-400 hover:text-white transition duration-300">Home</a></li>
+                        <li><a href="./../about-us/index.html" class="text-gray-400 hover:text-white transition duration-300">About Us</a></li>
+                        <li><a href="#painfree"
+                                class="text-gray-400 hover:text-white transition duration-300">Services</a></li>
+                        <li><a href="#doctors" class="text-gray-400 hover:text-white transition duration-300">Our
+                                Doctors</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-white transition duration-300">Contact
+                                Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-6">Our Services</h3>
+                    <ul class="space-y-3">
+                        <li><a href="./../index.html" class="text-gray-400 hover:text-white transition duration-300">Dental Scaling & Polishing</a></li>
+                        <li><a href="./../index.html" class="text-gray-400 hover:text-white transition duration-300">Root Canal Treatment</a>
+                        </li>
+                        <li><a href="./../index.html" class="text-gray-400 hover:text-white transition duration-300">Dental Implants</a></li>
+                        <li><a href="./../index.html" class="text-gray-400 hover:text-white transition duration-300">Dental Extraction</a></li>
+                        <li><a href="./../index.html" class="text-gray-400 hover:text-white transition duration-300">Cavity Fillings</a></li>
+                        <li><a href="./../index.html" class="text-gray-400 hover:text-white transition duration-300">Lost Tooth Replacement</a>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-6">Newsletter</h3>
+                    <p class="text-gray-400 mb-4">Subscribe to our newsletter for dental tips and special offers.</p>
+                    <form class="mb-4">
+                        <div class="flex">
+                            <input type="email" placeholder="Your Email"
+                                class="px-4 py-2 w-full rounded-l border-none focus:outline-none text-gray-800">
+                            <button type="submit"
+                                class="bg-primary text-white px-4 py-2 rounded-r hover:bg-blue-600 transition duration-300 whitespace-nowrap">
+                                Subscribe
+                            </button>
+                        </div>
+                    </form>
+                    <div>
+                        <h4 class="text-lg font-medium mb-3">We Accept</h4>
+                        <div class="flex space-x-3">
+                            <i class="ri-visa-fill text-2xl text-gray-400"></i>
+                            <i class="ri-mastercard-fill text-2xl text-gray-400"></i>
+                            <i class="ri-paypal-fill text-2xl text-gray-400"></i>
+                            <i class="ri-amazon-pay-fill text-2xl text-gray-400"></i>
+                            <i class="ri-google-pay-fill text-2xl text-gray-400"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-gray-400 text-sm mb-4 md:mb-0">© 2025 Dentino Oral Experts. All rights reserved.</p>
+                    <div class="flex space-x-6">
+                        <a href="#" class="text-gray-400 hover:text-white text-sm transition duration-300">Privacy
+                            Policy</a>
+                        <a href="#" class="text-gray-400 hover:text-white text-sm transition duration-300">Terms of
+                            Service</a>
+                        <a href="#" class="text-gray-400 hover:text-white text-sm transition duration-300">Sitemap</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Menu (Hidden by default) -->
+    <div id="mobile-menu" class="fixed inset-0 bg-gray-900/95 z-50 hidden">
+        <div class="flex justify-end p-4">
+            <button id="close-menu" class="text-white w-10 h-10 flex items-center justify-center">
+                <i class="ri-close-line ri-2x"></i>
+            </button>
+        </div>
+        <div class="flex flex-col items-center justify-center h-full">
+            <nav class="flex flex-col space-y-6 text-center">
+                <a href="./../index.html"
+                    data-readdy="true" class="text-white text-xl font-medium hover:text-primary">Home</a>
+                <a href="./index.html" class="text-primary text-xl font-medium">About Us</a>
+                <a href="#services" class="text-white text-xl font-medium hover:text-primary">Services</a>
+                <a href="#doctors" class="text-white text-xl font-medium hover:text-primary">Doctors</a>
+                <a href="#contact" class="text-white text-xl font-medium hover:text-primary">Contact</a>
+            </nav>
+            <div class="mt-12">
+               <a href="./../book-now/index.html"><button
+                    class="bg-primary text-white px-8 py-3 rounded-button font-medium hover:bg-blue-600 transition duration-300 whitespace-nowrap">
+                    Book Appointment
+                </button></a> 
+            </div>
+        </div>
+    </div>
+
+    <!-- WhatsApp Chat Button -->
+    <a href="https://wa.me/919515084487" target="_blank"
+        class="fixed bottom-6 right-6 bg-[#25D366] text-white w-12 h-12 rounded-full shadow-lg flex items-center justify-center z-50 hover:bg-[#128C7E] transition-all duration-300">
+        <i class="ri-whatsapp-fill ri-lg"></i>
+    </a>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top"
+        class="fixed bottom-24 right-6 bg-primary text-white w-12 h-12 rounded-full shadow-lg flex items-center justify-center opacity-0 invisible transition-all duration-300">
+        <i class="ri-arrow-up-line ri-lg"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script id="mobile-menu-toggle">
+        document.addEventListener('DOMContentLoaded', function () {
+            const mobileMenuButton = document.querySelector('.lg\\:hidden');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const closeMenuButton = document.getElementById('close-menu');
+
+            mobileMenuButton.addEventListener('click', function () {
+                mobileMenu.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            });
+
+            closeMenuButton.addEventListener('click', function () {
+                mobileMenu.classList.add('hidden');
+                document.body.style.overflow = '';
+            });
+
+            // Close mobile menu when clicking on a link
+            const mobileLinks = mobileMenu.querySelectorAll('a');
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', function () {
+                    mobileMenu.classList.add('hidden');
+                    document.body.style.overflow = '';
+                });
+            });
+        });
+    </script>
+
+    <script id="back-to-top">
+        document.addEventListener('DOMContentLoaded', function () {
+            const backToTopButton = document.getElementById('back-to-top');
+
+            window.addEventListener('scroll', function () {
+                if (window.pageYOffset > 300) {
+                    backToTopButton.classList.remove('opacity-0', 'invisible');
+                    backToTopButton.classList.add('opacity-100', 'visible');
+                } else {
+                    backToTopButton.classList.remove('opacity-100', 'visible');
+                    backToTopButton.classList.add('opacity-0', 'invisible');
+                }
+            });
+
+            backToTopButton.addEventListener('click', function () {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+
+    <script id="appointment-modal">
+        document.addEventListener('DOMContentLoaded', function () {
+            const modal = document.getElementById('appointment-modal');
+            const openModalBtns = [
+                document.getElementById('header-book-appointment'),
+                document.getElementById('cta-book-appointment')
+            ];
+            const closeModalBtn = document.getElementById('close-appointment-modal');
+
+            function openModal() {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeModal() {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            openModalBtns.forEach(btn => {
+                if (btn) {
+                    btn.addEventListener('click', openModal);
+                }
+            });
+
+            closeModalBtn.addEventListener('click', closeModal);
+
+            modal.addEventListener('click', function (e) {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
+        });
+    </script>
+
+    <script id="form-handlers">
+        document.addEventListener('DOMContentLoaded', function () {
+            const appointmentForm = document.getElementById('appointment-form');
+            const contactForm = document.getElementById('contact-form');
+
+            function showMessage(message, type = 'success') {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `fixed top-4 right-4 px-6 py-3 rounded-lg shadow-lg z-50 ${type === 'success' ? 'bg-green-500' : 'bg-red-500'} text-white`;
+                messageDiv.textContent = message;
+                document.body.appendChild(messageDiv);
+                setTimeout(() => messageDiv.remove(), 3000);
+            }
+
+            function handleFormSubmit(form, successMessage) {
+                if (!form) return;
+
+                form.addEventListener('submit', function (e) {
+                    e.preventDefault();
+                    const formData = new FormData(form);
+                    const formEntries = Object.fromEntries(formData);
+
+                    for (let [key, value] of Object.entries(formEntries)) {
+                        if (typeof value === 'string' && value.length > 500) {
+                            showMessage('Text content exceeds 500 characters limit', 'error');
+                            return;
+                        }
+                    }
+
+                    fetch(form.action, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: new URLSearchParams(formData).toString()
+                    })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            showMessage(successMessage);
+                            form.reset();
+                            if (form === appointmentForm) {
+                                document.getElementById('appointment-modal').classList.remove('active');
+                                document.body.style.overflow = '';
+                            }
+                        })
+                        .catch(error => {
+                            showMessage('Failed to submit form. Please try again.', 'error');
+                            console.error('Error:', error);
+                        });
+                });
+            }
+
+            handleFormSubmit(appointmentForm, 'Appointment booked successfully! We will contact you shortly.');
+            handleFormSubmit(contactForm, 'Message sent successfully! We will get back to you soon.');
+        });
+    </script>
+
+    <script id="smooth-scroll">
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const headerOffset = 80;
+                        const elementPosition = targetElement.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
