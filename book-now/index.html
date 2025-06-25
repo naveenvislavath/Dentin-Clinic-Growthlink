@@ -125,6 +125,39 @@
             </form>
         </div>
     </div>
+<script>
+    document.getElementById('appointment-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const formData = {
+            name: document.getElementById('appointment-name').value,
+            phone: document.getElementById('appointment-phone').value,
+            email: document.getElementById('appointment-email').value,
+            service: document.getElementById('appointment-service').value,
+            date: document.getElementById('appointment-date').value,
+            time: document.getElementById('appointment-time').value
+        };
+
+        fetch('https://readdy.ai/api/form/d0hhbft9n7fuabbsmqog', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(response => {
+            if (response.ok) {
+                alert('Form submitted successfully!');
+            } else {
+                alert('Error! Something went wrong.');
+            }
+        })
+        .catch(error => {
+            alert('Fetch Error: ' + error.message);
+        });
+    });
+</script>
+
 </body>
 
 </html>
