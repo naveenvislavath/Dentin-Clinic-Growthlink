@@ -1499,6 +1499,38 @@
             });
         });
     </script>
+
+
+<script>
+ document.getElementById('contact-form').addEventListener('submit', function (e) {
+  e.preventDefault();
+  const form = e.target;
+  const formData = new FormData(form);
+  const data = {};
+  formData.forEach((value, key) => data[key] = value);
+
+  fetch('https://readdy.ai/api/form/d11tavkfpsfnaqn0abj0', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+  .then(res => {
+    if (res.ok) {
+      alert("Form submitted successfully!");
+      form.reset();
+    } else {
+      alert("Submission failed");
+    }
+  })
+  .catch(err => {
+    alert("Error: " + err.message);
+  });
+});
+
+
+</script>
 </body>
 
 </html>
